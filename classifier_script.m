@@ -18,8 +18,8 @@ scale_factor = scalem([], 'variance')*pcam([], 20);
 % pcam need to be explored more.
 
 % plain qdc
-classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), knnc([],6), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([]), bpxnc([])};
-classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'knnc6', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc', 'bpxnc'};
+classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), knnc([],6), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([]), bpxnc([]), treec([])};
+classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'knnc6', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc', 'bpxnc', 'treec'};
 %featnum = [1:1:32];
 %E = clevalf(datasetpro, classifier, featnum , 0.5, 10);
 %figure(1);
