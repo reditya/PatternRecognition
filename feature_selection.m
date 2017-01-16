@@ -1,7 +1,7 @@
 % feature selection technique
 % list of classifier : ldc, qdc, knnc, parzenc, loglc, nmc, fisherc, svc,
 % bpxnc (neural network), treec?, rnnc, lmnc, neurc
-classifier = knnc([],3);
+classifier = qdc([]);
 featnum = [1:1:24]; % based on which features to use
 prwaitbar off;
 prwarning off;

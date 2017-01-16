@@ -5,7 +5,7 @@
 
 % qdc
 classifier = qdc([]);
-[E_qdc_pixels,Std_qdc_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
+[E_qdc_pixels,Std_qdc_pixels] = prcrossval(scaled_features*dataset_features, classifier, 10, 2);
 % ldc
 classifier = ldc([]);
 [E_ldc_pixels,Std_ldc_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
