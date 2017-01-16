@@ -21,6 +21,7 @@ dataset_profiles = im_profile(dataset_pixel,16,16);
 % separate the dataset into training and test set
 [trn_f tst_f] = gendat(dataset_features,0.5);
 [trn_p tst_p] = gendat(dataset_profiles,0.5);
+[trn_pix tst_pix] = gendat(dataset_pixel,0.5);
 %%%% END PREPROCESSING %%%%
 
 
