@@ -1,15 +1,15 @@
 % feature selection technique
 % list of classifier : ldc, qdc, knnc, parzenc, loglc, nmc, fisherc, svc,
 % bpxnc (neural network), treec?, rnnc, lmnc, neurc
-classifier = qdc([]);
-featnum = [1:1:24]; % based on which features to use
+classifier = knnc([],3);
+featnum = [1:1:32]; % based on which features to use
 prwaitbar off;
 prwarning off;
 mf = max(featnum) % max feature
 
 %%%% 
-trn_set = trn_f;
-tst_set = tst_f;
+trn_set = trn_p;
+tst_set = tst_p;
 %%%%
 e0 = clevalf(trn_set,classifier,featnum,[],1,tst_set);
 rp = randperm(size(dataset_features,2)); %size() returns the number of features while randperm returns permutation of number of features
