@@ -14,7 +14,8 @@
 %[Efisherc Rfisherc] = tst_p*fisherc(trn_p)*testc;
 
 % plain qdc
-classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), knnc([],6)};
+classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), knnc([],6), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([]), bpxnc([])};
+classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'knnc6', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc', 'bpxnc'};
 %featnum = [1:1:32];
 %E = clevalf(datasetpro, classifier, featnum , 0.5, 10);
 %figure(1);
