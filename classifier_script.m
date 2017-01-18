@@ -24,6 +24,6 @@ classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'knnc6', 'qdc', 'ldc', '
 %E = clevalf(datasetpro, classifier, featnum , 0.5, 10);
 %figure(1);
 %plote(E);
-%[E_knn_pixels,Std_knn_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
-[E_knn_profiles,Std_knn_profiles] = prcrossval(dataset_profiles, scale_factor*classifier, 20, 2);
+[E_knn_pixels,Std_knn_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
+%[E_knn_profiles,Std_knn_profiles] = prcrossval(dataset_profiles, scale_factor*classifier, 20, 2);
 %[E_knn_features,Std_knn_features] = prcrossval(dataset_features, classifier, 10, 2);
