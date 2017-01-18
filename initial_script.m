@@ -8,12 +8,17 @@ nistdataset = prnist([0:9], [1:2:1000]); %load 500 objects from each class
 %%%% PREPROCESSING PART %%%%
 % make a bounding box so that all images have same box and resize the 
 % images to 16x16 pixels #need to find reference why 16x16#
+
 preproc = im_box([],10,1)*im_rotate*im_rotate(pi/2)*im_box([],0)*im_gauss(2)*im_resize([], [16 16]);
+preproc_basic = im_box([],0,1)*im_resize([], [16 16]);
+
 preproc_dataset = nistdataset*preproc;
+preproc_dataset_basic = nistdataset*preproc_basic;
 % change to prdataset
 % the first representation after converting to prdataset is pixels
 % representation
 dataset_pixel = prdataset(preproc_dataset);
+dataset_pixel_basic = prdataset(preproc_dataset_basic);
 % extract all features of the image
 dataset_features = im_features(dataset_pixel,'all');
 % extract profiles of the image
