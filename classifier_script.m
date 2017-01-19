@@ -1,3 +1,4 @@
+tic;
 % using qdc
 %[Eqdc Rqdc] = tst_p*qdc(trn_p,0.05,0.05)*testc;
 % using knnc
@@ -18,12 +19,14 @@ scale_factor = scalem([], 'variance')*pcam([], 20);
 % pcam need to be explored more.
 
 % plain qdc
-classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), knnc([],6), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([]), bpxnc([]), treec([])};
-classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'knnc6', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc', 'bpxnc', 'treec'};
+classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([]), bpxnc([]), treec([]), lmnc([])};
+classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc', 'bpxnc', 'treec', 'lmnc'};
 %featnum = [1:1:32];
 %E = clevalf(datasetpro, classifier, featnum , 0.5, 10);
 %figure(1);
 %plote(E);
-[E_knn_pixels,Std_knn_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
+[E_pixels,Std_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
+%[E_pixels_basic,Std_pixels_basic] = prcrossval(dataset_pixel_basic, classifier, 10, 2);
 %[E_knn_profiles,Std_knn_profiles] = prcrossval(dataset_profiles, scale_factor*classifier, 20, 2);
 %[E_knn_features,Std_knn_features] = prcrossval(dataset_features, classifier, 10, 2);
+running_time = toc;

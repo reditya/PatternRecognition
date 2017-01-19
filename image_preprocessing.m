@@ -6,7 +6,9 @@ prwaitbar off
 prwarning off
 
 nistdataset = prnist([0:9], [1:100:1000]);
-preproc = im_box([],10,1)*im_rotate*im_rotate(pi/2)*im_box([],0)*im_gauss(2)*im_resize([], [16 16]);
+%preproc = im_box([],10,1)*im_rotate*im_rotate(pi/2)*im_box([],0)*im_gauss(2)*im_resize([], [16 16]);
+preproc = im_box([],10,1)*im_rotate*im_box([],0)*im_gauss(2)*im_resize([], [16 16]);
+preproc_basic = im_box([],0,1)*im_resize([], [16 16]);
 
 % preprocessing on one image.
 img = nistdataset(20,:);
@@ -22,6 +24,8 @@ figure;
 show(nistdataset, 10);
 figure;
 show(nistdataset*preproc, 10);
+figure;
+show(nistdataset*preproc_basic, 10);
 
 %dipimage usage
 %doubles = data2im(img);
