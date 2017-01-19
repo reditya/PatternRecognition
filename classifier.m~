@@ -7,4 +7,5 @@
 % using parzenc
 [Eparzenc Rparzenc] = tst_p*parzenc(trn_p)*testc;
 
-
+wparzen = dataset_pixel_basic*(parzenc([]));
+wqdc = dataset_pixel_basic*(parzenc([]));

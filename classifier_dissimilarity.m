@@ -1,11 +1,12 @@
 % dissimilarity representation
 % use small representation of 5% of the whole dataset
 % the dissimilarity is based on pixels
-small_reps = gendat(dataset_pixel_basic, 0.80);
-dis_cityblock = proxm(small_reps,'c');
-dis_euclidean = proxm(small_reps,'d',2);
-dataset_pixel_cityblock = dataset_pixel_basic*dis_cityblock;
-dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
+%small_reps = gendat(dataset_pixel_basic, 0.1);
+%dis_cityblock = proxm(small_reps,'c');
+%dis_euclidean = proxm(small_reps,'d',2);
+%dis_euclidean = distm(small_reps);
+%dataset_pixel_cityblock = dataset_pixel_basic*dis_cityblock;
+%dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
 
 % classifier evaluation for dissimilarity
 % list of classifier to test : ldc, qdc, knnc, parzenc, loglc, nmc, fisherc, svc,
@@ -20,6 +21,11 @@ dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
 %nonpar_clas_dis = {knnc([],2),knnc([],3),knnc([],4),knnc([],5),parzenc([])};
 %[E_nonpar_dis_cb, S_nonpar_dis_cb] = prcrossval(dataset_pixel_cityblock, nonpar_clas_dis, 10, 2);
 %[E_nonpar_dis_eu, S_nonpar_dis_eu] = prcrossval(dataset_pixel_euclidean, nonpar_clas_dis, 10, 2);
+
+% support vector machine with radial basis
+%svc_clas_dis = {bpxnc([])};
+%[E_neural_dis_cb, S_neural_dis_cb] = prcrossval(dataset_pixel_cityblock, neural_clas_dis, 10, 2);
+%[E_neural_dis_eu, S_neural_dis_eu] = prcrossval(dataset_pixel_euclidean, neural_clas_dis, 10, 2);
 
 % neural network (bpxnc)
 %neural_clas_dis = {bpxnc([])};
@@ -62,6 +68,13 @@ dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
 %res_4NN = zeros(size(featnum));
 %res_5NN = zeros(size(featnum));
 
+% now let's try PCA in 3-NN,4-NN,5-NN
+%featnum = [1:5:250];
+% featnum = [1:10:250];
+%res_3NN = zeros(size(featnum));
+%res_4NN = zeros(size(featnum));
+%res_5NN = zeros(size(featnum));
+
 %for c = featnum
 %    pca_dis_3NN = knnc([],3);
 %    pca_dis_4NN = knnc([],4);
@@ -76,16 +89,17 @@ dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
 % final verdict : feature reduction is not possible for diss representation
 
 % next, let's try some combiner into 3-NN,4-NN,5-NN
-w1 = knnc([],3);
-w2 = knnc([],4);
-w3 = knnc([],5);
-combinerProd = [w1 w2 w3]*prodc;
-combinerMean = [w1 w2 w3]*meanc;
-combinerMin = [w1 w2 w3]*minc;
-combinerMax = [w1 w2 w3]*maxc;
-combinerMedian = [w1 w2 w3]*medianc;
-combinerVote = [w1 w2 w3]*votec;
-%combinerAll = {combinerProd, combinerMean, combinerMin, combinerMax, combinerMedian, combinerVote};
+% for scenario 2, it's better to use ldc,fisher,parzenc
+w1 = parzenc([]);
+w2 = fisherc([]);
+%w3 = parzenc([]);
+combinerProd = [w1 w2]*prodc;
+combinerMean = [w1 w2]*meanc;
+combinerMin = [w1 w2]*minc;
+combinerMax = [w1 w2]*maxc;
+combinerMedian = [w1 w2]*medianc;
+combinerVote = [w1 w2]*votec;
+combinerAll = {combinerProd, combinerMean, combinerMin, combinerMax, combinerMedian, combinerVote};
 %[E_combiner_dis_cb, S_combiner_dis_cb] = prcrossval(dataset_pixel_cityblock, combinerAll, 10, 2);
 [E_combiner_dis_cb_prod, S_combiner_dis_cb_prod] = prcrossval(dataset_pixel_cityblock, combinerProd, 10, 2);
 [E_combiner_dis_cb_mean, S_combiner_dis_cb_mean] = prcrossval(dataset_pixel_cityblock, combinerMean, 10, 2);
