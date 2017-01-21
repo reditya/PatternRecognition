@@ -3,7 +3,7 @@ clear;
 clc;
 
 % Load the NIST dataset
-nistdataset = prnist([0:9], [1:2:1000]); %load 500 objects from each class
+nistdataset = prnist([0:9], [1:100:1000]); %load 500 objects from each class
 
 %%%% PREPROCESSING PART %%%%
 % make a bounding box so that all images have same box and resize the 
