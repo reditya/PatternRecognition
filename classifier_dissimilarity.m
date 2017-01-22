@@ -1,12 +1,12 @@
 % dissimilarity representation
 % use small representation of 5% of the whole dataset
 % the dissimilarity is based on pixels
-%small_reps = gendat(dataset_pixel_basic, 0.1);
+%small_reps = gendat(dataset_deskew, 0.05);
 %dis_cityblock = proxm(small_reps,'c');
 %dis_euclidean = proxm(small_reps,'d',2);
 %dis_euclidean = distm(small_reps);
-%dataset_pixel_cityblock = dataset_pixel_basic*dis_cityblock;
-%dataset_pixel_euclidean = dataset_pixel_basic*dis_euclidean;
+%dataset_pixel_cityblock = dataset_deskew*dis_cityblock;
+%dataset_pixel_euclidean = dataset_deskew*dis_euclidean;
 
 % classifier evaluation for dissimilarity
 % list of classifier to test : ldc, qdc, knnc, parzenc, loglc, nmc, fisherc, svc,
@@ -90,17 +90,21 @@
 
 % next, let's try some combiner into 3-NN,4-NN,5-NN
 % for scenario 2, it's better to use ldc,fisher,parzenc
-w1 = parzenc([]);
-w2 = fisherc([]);
-%w3 = parzenc([]);
-combinerProd = [w1 w2]*prodc;
-combinerMean = [w1 w2]*meanc;
-combinerMin = [w1 w2]*minc;
-combinerMax = [w1 w2]*maxc;
-combinerMedian = [w1 w2]*medianc;
-combinerVote = [w1 w2]*votec;
+%w1 = knnc([],3);
+%w2 = knnc([],4);
+%w3 = knnc([],5);
+w1 = parzenc([],0.1);
+w2 = knnc([],3);
+combElements = [w1 w2];
+combinerProd = combElements*prodc;
+combinerMean = combElements*meanc;
+combinerMin = combElements*minc;
+combinerMax = combElements*maxc;
+combinerMedian = combElements*medianc;
+combinerVote = combElements*votec;
 combinerAll = {combinerProd, combinerMean, combinerMin, combinerMax, combinerMedian, combinerVote};
 %[E_combiner_dis_cb, S_combiner_dis_cb] = prcrossval(dataset_pixel_cityblock, combinerAll, 10, 2);
+dataset_pixel_cityblock = dataset_deskew_small;
 [E_combiner_dis_cb_prod, S_combiner_dis_cb_prod] = prcrossval(dataset_pixel_cityblock, combinerProd, 10, 2);
 [E_combiner_dis_cb_mean, S_combiner_dis_cb_mean] = prcrossval(dataset_pixel_cityblock, combinerMean, 10, 2);
 [E_combiner_dis_cb_min, S_combiner_dis_min] = prcrossval(dataset_pixel_cityblock, combinerMin, 10, 2);
