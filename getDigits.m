@@ -4,7 +4,7 @@
 % accordingly
 %
 
-image_ = imread('tstcheck.jpg'); %load the image file
+image_ = imread('scans/1.jpg'); %load the image file
 [x,y,z] = size(image_); % get the size of the image
 relevant_area = image_(round(x/6.5):round(x/2.7),round(y/4.96):round(y/1.96),1:z); % get the relevant area of the check
 [x_,y_,z_] = size(relevant_area); % size of the relevant area
