@@ -10,8 +10,8 @@ relevant_area = image_(round(x/6.5):round(x/2.7),round(y/5):round(y/1.96),1:z); 
 [x_,y_,z_] = size(relevant_area); % size of the relevant area
 
 % array containing the handwritten amount digits
-amount = zeros(5,256); 
-account = zeros(10,256); 
+amount = zeros(16,16,5); 
+account = zeros(16,16,10); 
 
 % define some variables regarding the handwritten digits locantions
 startX = round(x_/15);
@@ -31,7 +31,7 @@ for i = 1:5
     binaryDigit = imsharpen(binaryDigit);
     %account(:,:,i) = imresize(binaryDigit, [32 32]);
     K = binaryDigit*im_gauss([])*im_resize([],[16 16]);
-    amount(i,:) = K(:);    
+    account(:,:,i) = K;    
     %amount(:,:,i) = imresize(binaryDigit, [32 32]);    
     subplot(1,5,i)
     subimage(K)    
@@ -55,16 +55,7 @@ for i = 1:10
     binaryDigit = imsharpen(binaryDigit);
     %account(:,:,i) = imresize(binaryDigit, [32 32]);
     K = binaryDigit*im_gauss([])*im_resize([],[16 16]);
-    account(i,:) = K(:);
+    account(:,:,i) = K;
     %subplot(1,10,i)
     %subimage(K)
 end
-
-% evaluation
-prAmount = prdataset(amount);
-prAccount = prdataset(account);
-% test using classifier with large training set
-% load the deskew_data.mat first
-W = knnc(dataset_deskew,3);
-labAmount = labeld(prAmount,W);
-labAccount = labeld(prAccount,W);
