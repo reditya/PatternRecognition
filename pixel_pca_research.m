@@ -1,4 +1,4 @@
-featnum = [0:8:64];
+featnum = [1:1:256]; % all [1:1:256]
 featnum(1) = 1;
 res_3NN = zeros(size(featnum));
 res_4NN = zeros(size(featnum));
@@ -11,6 +11,7 @@ res_nmc = zeros(size(featnum));
 res_fisherc = zeros(size(featnum));
 
 for c = featnum
+    tic;
     pca_pix_3NN = knnc([],3);
     pca_pix_4NN = knnc([],4);
     pca_pix_5NN = knnc([],5);
@@ -32,4 +33,5 @@ for c = featnum
     res_loglc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_loglc,10,2);
     res_nmc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_nmc,10,2);
     res_fisherc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_fisherc,10,2);
+    toc;
 end
