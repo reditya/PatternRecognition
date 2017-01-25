@@ -10,7 +10,7 @@ res_loglc = zeros(size(featnum));
 res_nmc = zeros(size(featnum));
 res_fisherc = zeros(size(featnum));
 
-dataset_pixel_basic = dataset_deskew;
+dataset_pixel_basic = dataset_
 
 for c = featnum
     tic;
@@ -26,14 +26,14 @@ for c = featnum
     
     wp = pcam([],c);
     c
-    %res_3NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_3NN,10,2);
-    %res_4NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_4NN,10,2);
-    %res_5NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_5NN,10,2);
+    res_3NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_3NN,10,2);
+    res_4NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_4NN,10,2);
+    res_5NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_5NN,10,2);
     res_parzen(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_parzen,10,2);
-    %res_qdc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_qdc,10,2);
-    %res_ldc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_ldc,10,2);
-    %res_loglc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_loglc,10,2);
-    %res_nmc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_nmc,10,2);
-    %res_fisherc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_fisherc,10,2);
+    res_qdc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_qdc,10,2);
+    res_ldc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_ldc,10,2);
+    res_loglc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_loglc,10,2);
+    res_nmc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_nmc,10,2);
+    res_fisherc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_fisherc,10,2);
     toc;
 end
