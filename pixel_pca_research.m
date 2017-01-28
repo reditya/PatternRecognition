@@ -24,14 +24,16 @@ for c = featnum
     
     wp = pcam([],c);
     c
-    res_3NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_3NN,10,2);
-    res_4NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_4NN,10,2);
-    res_5NN(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_5NN,10,2);
-    res_parzen(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_parzen,10,2);
-    res_qdc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_qdc,10,2);
-    res_ldc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_ldc,10,2);
-    res_loglc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_loglc,10,2);
-    res_nmc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_nmc,10,2);
-    res_fisherc(c) = prcrossval(dataset_pixel_basic,wp*pca_pix_fisherc,10,2);
-    toc;
+    res_3NN(c) = prcrossval(dataset_pixel,wp*pca_pix_3NN,10,2);
+    res_4NN(c) = prcrossval(dataset_pixel,wp*pca_pix_4NN,10,2);
+    res_5NN(c) = prcrossval(dataset_pixel,wp*pca_pix_5NN,10,2);
+    res_parzen(c) = prcrossval(dataset_pixel,wp*pca_pix_parzen,10,2);
+    res_qdc(c) = prcrossval(dataset_pixel,wp*pca_pix_qdc,10,2);
+    res_ldc(c) = prcrossval(dataset_pixel,wp*pca_pix_ldc,10,2);
+    res_loglc(c) = prcrossval(dataset_pixel,wp*pca_pix_loglc,10,2);
+    res_nmc(c) = prcrossval(dataset_pixel,wp*pca_pix_nmc,10,2);
+    res_fisherc(c) = prcrossval(dataset_pixel,wp*pca_pix_fisherc,10,2);
+    [c res_3NN(c) res_4NN(c) res_5NN(c) res_parzen(c) res_qdc(c) res_ldc(c) res_loglc(c) res_nmc(c) res_fisherc(c)]
+    toc
 end
+[featnum' res_3NN(featnum)' res_4NN(featnum)' res_5NN(featnum)' res_parzen(featnum)' res_qdc(featnum)' res_ldc(featnum)' res_loglc(featnum)' res_nmc(featnum)' res_fisherc(featnum)']

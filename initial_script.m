@@ -4,7 +4,10 @@ clear;
 clc;
 
 % Load the NIST dataset
-nistdataset = prnist([0:9], [1:2:1000]); %load 500 objects from each class
+nistdataset = prnist([0:9], [1:100:1000]); %load 500 objects from each class
+
+% Load deskew dataset
+load('deskew_data');
 
 %%%% PREPROCESSING PART %%%%
 % make a bounding box so that all images have same box and resize the 
@@ -19,6 +22,8 @@ preproc_dataset_basic = nistdataset*preproc_basic;
 % the first representation after converting to prdataset is pixels
 % representation
 dataset_pixel = prdataset(preproc_dataset);
+dataset_pixel_deskew = dataset_deskew;
+dataset_pixel_deskew_small = dataset_deskew_small;
 dataset_pixel_basic = prdataset(preproc_dataset_basic);
 % extract all features of the image
 dataset_features = im_features(dataset_pixel,'all');
@@ -30,5 +35,5 @@ dataset_profiles = im_profile(dataset_pixel,16,16);
 [trn_pix tst_pix] = gendat(dataset_pixel,0.5);
 [trn_pix_bas tst_pix_bas] = gendat(dataset_pixel_basic,0.5);
 %%%% END PREPROCESSING %%%%
-running_time = toc;
+running_time = toc
 %running_time +/- 164.0019

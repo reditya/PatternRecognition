@@ -25,8 +25,15 @@ classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'qdc', 'ldc', 'parzenc',
 %E = clevalf(datasetpro, classifier, featnum , 0.5, 10);
 %figure(1);
 %plote(E);
-[E_pixels,Std_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
-%[E_pixels_basic,Std_pixels_basic] = prcrossval(dataset_pixel_basic, classifier, 10, 2);
+%[E_pixels,Std_pixels] = prcrossval(dataset_pixel, classifier, 10, 2);
+%[E_pixels_deskew,Std_pixels_deskew] = prcrossval(dataset_pixel_deskew, classifier, 10, 2);
+[E_pixels_basic,Std_pixels_basic] = prcrossval(dataset_pixel_basic, classifier, 10, 2);
 %[E_knn_profiles,Std_knn_profiles] = prcrossval(dataset_profiles, scale_factor*classifier, 20, 2);
 %[E_knn_features,Std_knn_features] = prcrossval(dataset_features, classifier, 10, 2);
-running_time = toc;
+
+% tree is not working for deskew
+% for i=1:size(classifier,2)
+%     i
+%     [E_pixels_deskew(i),Std_pixels_deskew(i)] = prcrossval(dataset_pixel_deskew, classifier(i), 10, 2);
+% end
+running_time = toc
