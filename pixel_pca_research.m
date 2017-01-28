@@ -10,6 +10,8 @@ res_loglc = zeros(size(featnum));
 res_nmc = zeros(size(featnum));
 res_fisherc = zeros(size(featnum));
 
+dataset_pixel_basic = dataset_deskew;
+
 for c = featnum
     tic;
     pca_pix_3NN = knnc([],3);

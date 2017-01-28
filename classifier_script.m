@@ -37,3 +37,12 @@ classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'qdc', 'ldc', 'parzenc',
 %     [E_pixels_deskew(i),Std_pixels_deskew(i)] = prcrossval(dataset_pixel_deskew, classifier(i), 10, 2);
 % end
 running_time = toc
+
+%%%% DESKEWED VERSION EVALUATION %%%%
+
+%%% SCENARIO 1 %%%
+tic;
+classifier = {knnc([],2), knnc([],3), knnc([],4), knnc([],5), qdc([]), ldc([]), parzenc([]), loglc([]), nmc([]), fisherc([])};
+classifier_names = {'knnc2', 'knnc3', 'knnc4', 'knnc5', 'qdc', 'ldc', 'parzenc', 'loglc', 'nmc', 'fisherc'};
+[E_pixels_deskewed,Std_pixels_deskewed] = prcrossval(dataset_deskew, classifier, 10, 2);
+running_time = toc;
