@@ -19,7 +19,7 @@ err_scenario_1 = nist_eval('preprocess_basic',clsf_nist_1,100);
 % on prodc
 we1_2 = pcam(dataset_deskew_small,22)*parzenc([],0.78); % h is from optimizing parzenc using built-in function in parzenc.m
 we2_2 = pcam(dataset_deskew_small,22)*ldc([]);
-we3_2 = pcam(dataset_pixel_basic,21)*fisherc([]);
+we3_2 = pcam(dataset_deskew_small,21)*fisherc([]);
 combined_we_2 = [we1_2 we2_2 we3_2];
 clsf_nist_2 = dataset_deskew_small*combined_we_2*prodc;
 
