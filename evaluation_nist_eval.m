@@ -1,18 +1,26 @@
-% evaluation using my_rep function
-% to evaluate using nist_eval, we will only do it for pixel representation
-% which is the best in our case
+% Evaluation using nist_eval function
+% There are two types of my_rep function 
+% For scenario 1, preprocess_basic will be used, which use basic pixel representation
+% For scenario 2, preprocess_deskewed will be used, which use deskewed image
+% representation
 
-wparzen = dataset_pixel_basic*(parzenc([]));
-wqdc = dataset_pixel_basic*(qdc([]));
-wqdc_pca = dataset_pixel_basic*(pcam([],40)*qdc([]));
-wldc = dataset_pixel_basic*(ldc([]));
-wknnc = dataset_pixel_basic*(knnc([],3));
-wadaboost = adaboostc(dataset_pixel_basic,parzenc([],0.25),100);
+% Scenario 1
+% Best classifier is : PCA on 40, combining [knn3 parzen qd], combine on median 
+we1_1 = pcam(dataset_pixel_basic,40)*knnc([],3);
+we2_1 = pcam(dataset_pixel_basic,32)*parzenc([],1.20);  % h is from optimizing parzenc using built-in function in parzenc.m
+we3_1 = pcam(dataset_pixel_basic,45)*qdc([]);
+combined_we_1 = [we1_1 we2_1 we3_1];
+clsf_nist_1 = dataset_pixel_basic*combined_we_1*medianc;
 
+err_scenario_1 = nist_eval('preprocess_basic',clsf_nist_1,100);    
 
-errparzen = nist_eval('my_rep',wparzen,100);
-errqdc = nist_eval('my_rep',wqdc,100);
-errqdc_pca = nist_eval('my_rep',wqdc_pca,100);
-errldc = nist_eval('my_rep',wldc,100);
-errknnc = nist_eval('my_rep',wknnc,100);
-erradaboostc = nist_eval('my_rep',wadaboost,100);
+% Scenario 2
+% For scenario 2: pca 22 for parzen and ld and 21 for fisher and combining
+% on prodc
+we1_2 = pcam(dataset_deskew_small,22)*parzenc([],0.78); % h is from optimizing parzenc using built-in function in parzenc.m
+we2_2 = pcam(dataset_deskew_small,22)*ldc([]);
+we3_2 = pcam(dataset_pixel_basic,21)*fisherc([]);
+combined_we_2 = [we1_2 we2_2 we3_2];
+clsf_nist_2 = dataset_deskew_small*combined_we_2*prodc;
+
+err_scenario_2 = nist_eval('preprocess_deskewed',clsf_nist_2,100);

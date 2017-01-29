@@ -1,0 +1,16 @@
+% Evaluation using nist_eval function
+% There are two types of my_rep function 
+% For scenario 1, preprocess_basic will be used, which use basic pixel representation
+% For scenario 2, preprocess_deskewed will be used, which use deskewed image
+% representation
+
+% Scenario 1
+% Best classifier is : PCA on 40, combining [knn3 parzen qd], combine on median 
+we1 = pcam(dataset_pixel_basic,40)*knnc([],3);
+we2 = pcam(dataset_pixel_basic,32)*parzenc([]);
+we3 = pcam(dataset_pixel_basic,45)*qdc([]);
+combined_we = [we1; we2; we3];
+clsf_nist_1 = [dataset_pi*combined_we*medianc;
+
+err_scenario_1 = nist_eval('preprocess_basic',clsf_nist_1,100);
+

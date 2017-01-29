@@ -7,7 +7,6 @@ clc;
 nistdataset = prnist([0:9], [1:2:1000]); %load 500 objects from each class
 nistdataset_small = prnist([0:9], [1:100:1000]);
 
-
 % Load deskew dataset
 load('deskew_data');
 
@@ -59,6 +58,13 @@ d_cb_small = proxm(reps_small,'c');
 d_euc_small = proxm(reps_small,'d',2);
 dp_cb_small = dataset_pixel_basic_small*d_cb_small;
 dp_euc_small = dataset_pixel_basic_small*d_euc_small;
+
+% Scenario 2 - reps - deskew
+reps_small_dk = gendat(dataset_deskew_small, 0.05);
+d_cb_small_dk = proxm(reps_small_dk,'c');
+d_euc_small_dk = proxm(reps_small_dk,'d',2);
+dp_cb_small_dk = dataset_deskew_small*d_cb_small_dk;
+dp_euc_small_dk = dataset_deskew_small*d_euc_small_dk;
 
 % separate the dataset into training and test set
 [trn_f tst_f] = gendat(dataset_features,0.5);

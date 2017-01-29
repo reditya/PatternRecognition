@@ -2,10 +2,11 @@
 % Classifier evaluation for dissimilarity
 
 % Dataset initialization
-% For scenario 1, use tst_dis_cb and tst_dis_euc
-% For scenario 2, use tst_dis_cb_small and tst_dis_euc_small
-tst_dis_cb = dp_cb;
-tst_dis_euc = dp_euc;
+% For scenario 1, use dp_cb and dp_euc
+% For scenario 2, use dp_cb_small and dp_euc_small
+% For scenario 2, can also _dk (deskew)
+tst_dis_cb = dp_cb_small_dk;
+tst_dis_euc = dp_euc_small_dk;
 
 % Parametric classifier : ldc, qdc, loglc, fisherc, svc
 par_clas_dis = {ldc([]),qdc([]),nmc([]),fisherc([]),loglc([])};
@@ -30,8 +31,9 @@ lneural_clas_dis = {lmnc([])};
 % using feature selection for dissimilarity
 % let's try to use 3-NN as the classifier as 3-NN is the best classifier
 % for dissimilarity, based on prcrossval result above
-featsel_dis_clas = knnc([],3);
-featnum = [1:1:250]; % For scenario 1, it's 250, scenario 2, it's 10
+% for scenario 2, change into ldc([]) with 10 featnum
+featsel_dis_clas = ldc([]);
+featnum = [1:1:10]; % For scenario 1, it's 250, scenario 2, it's 10
 mf = max(featnum) % max feature
 
 [trn_cb, tst_cb] = gendat(tst_dis_cb,0.5);
@@ -81,12 +83,12 @@ end
 
 % next, let's try some combiner into 3-NN,4-NN,5-NN
 % for scenario 2, it's better to use ldc,fisher,parzenc
-w1 = knnc([],3);
-w2 = knnc([],4);
-w3 = knnc([],5);
-%w1 = parzenc([],0.1);
-%w2 = knnc([],3);
-combElements = [w1 ; w2 ; w3];
+%w1 = knnc([],3);
+%w2 = knnc([],4);
+%w3 = knnc([],5);
+w1 = ldc([]);
+w2 = fisherc([]);
+combElements = [w1 ; w2];
 combinerProd = combElements*prodc;
 combinerMean = combElements*meanc;
 combinerMin = combElements*minc;
@@ -96,12 +98,10 @@ combinerVote = combElements*votec;
 combinerAll = {combinerProd, combinerMean, combinerMin, combinerMax, combinerMedian, combinerVote};
 %[E_combiner_dis_cb, S_combiner_dis_cb] = prcrossval(tst_dis_cb, combinerAll, 10, 2);
 %tst_dis_cb = dataset_deskew_small;
-tst_dis_cb = dp_cb;
+tst_dis_cb = [tst_dis_euc tst_dis_euc];
 [E_combiner_dis_cb_prod, S_combiner_dis_cb_prod] = prcrossval(tst_dis_cb, combinerProd, 10, 2);
 [E_combiner_dis_cb_mean, S_combiner_dis_cb_mean] = prcrossval(tst_dis_cb, combinerMean, 10, 2);
 [E_combiner_dis_cb_min, S_combiner_dis_cb_min] = prcrossval(tst_dis_cb, combinerMin, 10, 2);
 [E_combiner_dis_cb_max, S_combiner_dis_cb_max] = prcrossval(tst_dis_cb, combinerMax, 10, 2);
 [E_combiner_dis_cb_median, S_combiner_dis_cb_median] = prcrossval(tst_dis_cb, combinerMedian, 10, 2);
 [E_combiner_dis_cb_vote, S_combiner_dis_cb_vote] = prcrossval(tst_dis_cb, combinerProd, 10, 2);
-
-
