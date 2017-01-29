@@ -22,7 +22,10 @@ combinerMedian = combining_classifiers*medianc;
 combinerVote = combining_classifiers*votec;
 
 %pcam = pcam([], 40); % Scenario 1
-pcam = pcam([], 20); % Scenario 2
+pcam = pcam([], 22); % Scenario 2
+
+%Scenario 1: dataset_pixel_basic
+%Scenario 2: dataset_pixel_deskew_small
 
 1
 tic;
