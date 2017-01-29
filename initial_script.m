@@ -7,6 +7,11 @@ clc;
 nistdataset = prnist([0:9], [1:2:1000]); %load 500 objects from each class
 nistdataset_small = prnist([0:9], [1:100:1000]);
 
+
+% Load deskew dataset
+load('deskew_data');
+
+%%%% PREPROCESSING PART %%%%
 % make a bounding box so that all images have same box and resize the 
 % images to 16x16 pixels 
 preproc = im_box([],10,1)*im_rotate*im_box([],0)*im_gauss(2)*im_resize([], [16 16]);
@@ -20,6 +25,8 @@ preproc_dataset_basic_small = nistdataset_small*preproc_basic;
 % the first representation after converting to prdataset is pixels
 % representation
 dataset_pixel = prdataset(preproc_dataset);
+dataset_pixel_deskew = dataset_deskew;
+dataset_pixel_deskew_small = dataset_deskew_small;
 dataset_pixel_basic = prdataset(preproc_dataset_basic);
 dataset_pixel_basic_small = prdataset(preproc_dataset_basic_small);
 
@@ -60,4 +67,6 @@ dp_euc_small = dataset_pixel_basic_small*d_euc_small;
 [trn_pix_bas tst_pix_bas] = gendat(dataset_pixel_basic,0.5);
 
 running_time = toc;
+%%%% END PREPROCESSING %%%%
+running_time = toc
 %running_time +/- 164.0019
