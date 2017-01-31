@@ -13,6 +13,7 @@ combined_we_1 = [we1_1 we2_1 we3_1];
 clsf_nist_1 = dataset_pixel_basic*combined_we_1*medianc;
 
 err_scenario_1 = nist_eval('preprocess_basic',clsf_nist_1,100);    
+% result : 0.0300
 
 % Scenario 2
 % For scenario 2: pca 22 for parzen and ld and 21 for fisher and combining
@@ -24,3 +25,4 @@ combined_we_2 = [we1_2 we2_2 we3_2];
 clsf_nist_2 = dataset_deskew_small*combined_we_2*prodc;
 
 err_scenario_2 = nist_eval('preprocess_deskewed',clsf_nist_2,100);
+% result : 0.1430

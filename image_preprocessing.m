@@ -1,5 +1,5 @@
 % Script for the basic and advanced preprocessing 
-% And for visualizing it in figues.
+% And for visualizing it in figures.
 % To be the initial research for preprocessing for scenario 1 and 2.
 
 close all;

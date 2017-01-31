@@ -1,3 +1,4 @@
+% This script is used for plotting the deskewed images
 make_it_tight = true;
 subplot = @(m,n,p) subtightplot (m, n, p, [0.01 0.01], [0.01 0.01], [0.01 0.01]);
 if ~make_it_tight,  clear subplot;  end
@@ -34,9 +35,9 @@ for i = dig_class
         J = imsharpen(J);
         Jarray(index,:) = J(:);
         Jlabel(index,:) = digitIdx(i+1,:);
-        axis off;
-        subplot(10,10,index);
-        subimage(J);
+        %axis off;
+        %subplot(10,10,index);
+        %subimage(J);
         index
    end
 end
@@ -75,11 +76,10 @@ for i = dig_class
         J = imsharpen(J);
         Jarray(index,:) = J(:);
         Jlabel(index,:) = digitIdx(i+1,:);
-        subplot(10,10,index)
-        subimage(J)
+        %subplot(10,10,index)
+        %subimage(J)
         index
    end
 end
 
 dataset_deskew = prdataset(Jarray,Jlabel);
-
