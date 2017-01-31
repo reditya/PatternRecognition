@@ -35,19 +35,18 @@ for j=1:14
         currentDigit = imcrop(currentDigit,[5 7 30 30]);
         binaryDigit = im2bw(currentDigit,graythresh(currentDigit));
         binaryDigit = imcomplement(binaryDigit);
-        %binaryDigit = imclearborder(binaryDigit);
         binaryDigit = im2double(binaryDigit);
         binaryDigit = imsharpen(binaryDigit);
-        %account(:,:,i) = imresize(binaryDigit, [32 32]);
         K = binaryDigit;
         K = K*im_box([],1,1);
-
+        
+        % Deskew the images
         m = cv.moments(K);
         skew = getfield(m,'mu11')/getfield(m,'mu02');
         M = [1 skew -0.5*16*skew; 0 1 0];
         K = cv.warpAffine(K, M, 'Interpolation', 'Linear', 'WarpInverse','1');      
-        %K = imsharpen(K);
-        K = K*im_gauss([])*im_center([])*im_resize([],[16 16]);
+
+        K = K*im_center([])*im_resize([],[16 16]);
         
         index = i+(j-1)*7;
         amount(index,:) = K(:);
@@ -70,26 +69,25 @@ for j=1:14
         currentDigit = imcrop(currentDigit,[5 7 30 30]);
         binaryDigit = im2bw(currentDigit,graythresh(currentDigit));
         binaryDigit = imcomplement(binaryDigit);
-        %binaryDigit = imclearborder(binaryDigit);
         binaryDigit = im2double(binaryDigit);
         binaryDigit = imsharpen(binaryDigit);
-        %account(:,:,i) = imresize(binaryDigit, [32 32]);
         K = binaryDigit;
         K = K*im_box([],1,1);
 
+        % Deskew the images
         m = cv.moments(K);
         skew = getfield(m,'mu11')/getfield(m,'mu02');
         M = [1 skew -0.5*16*skew; 0 1 0];
         K = cv.warpAffine(K, M, 'Interpolation', 'Linear', 'WarpInverse','1');      
-        %K = imsharpen(K);
-        K = K*im_gauss([])*im_center([])*im_resize([],[16 16]);
+
+        K = K*im_center([])*im_resize([],[16 16]);
         
         index = i+(j-1)*10;
         account(index,:) = K(:);
         axis off;
         %figure(1)
-        %subplot(14,10,index)
-        %subimage(K)
+        subplot(14,10,index)
+        subimage(K)
         %figure(2)
         %subplot(14,10,index)
         %subimage(currentDigit)        
@@ -114,8 +112,10 @@ W = dataset_pixel_basic*combined_we_1*medianc;
 % Error rate
 Eam_1 = prAmount*W*testc;
 Eac_1 = prAccount*W*testc;
-% Eam_1 = 0.3878
-% Eac_1 = 0.4857
+% Eam_1 = 0.3776
+% Eac_1 = 0.4214
+
+confmat(prAccount*W)
 
 % Evaluation using Scenario 2
 we1_2 = pcam(dataset_deskew_small,21)*parzenc([],0.78); % h is from optimizing parzenc using built-in function in parzenc.m
@@ -126,5 +126,8 @@ W = dataset_deskew_small*combined_we_2*prodc;
 % Error rate
 Eam_2 = prAmount*W*testc;
 Eac_2 = prAccount*W*testc;
-% Eam_2 = 0.7449
-% Eac_2 = 0.6929
+% Eam_2 = 0.5510
+% Eac_2 = 0.6214
+
+confmat(prAccount*W)
+
