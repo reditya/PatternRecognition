@@ -5,3 +5,5 @@ The only thing you have to run is 'evaluation_nist_eval.m'.
 Scripts used by running this are 'deskew_data.mat', 'preprocess_basic.m' and 'preprocess_deskewed.m'.
 This script will initialize the training sets, train the classifiers and evaluate them with nist_eval for scenario 1 and 2.
 To run tests for scenario 2 mexopencv (https://github.com/kyamagu/mexopencv) should be build with opencv-3.1.0.
+
+To reproduce more of our results you can go to: https://github.com/reditya132/PatternRecognition
