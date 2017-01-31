@@ -5,7 +5,7 @@
 % representation
 
 % Scenario 1
-% Best classifier is : PCA on 40, combining [knn3 parzen qd], combine on median 
+% Best classifier is : PCA on 34, combining [knn3 parzen qd], combine on median 
 we1_1 = pcam(dataset_pixel_basic,34)*knnc([],3);
 we2_1 = pcam(dataset_pixel_basic,34)*parzenc([],1.20);  % h is from optimizing parzenc using built-in function in parzenc.m
 we3_1 = pcam(dataset_pixel_basic,34)*qdc([]);
@@ -16,7 +16,7 @@ err_scenario_1 = nist_eval('preprocess_basic',clsf_nist_1,100);
 % result : 0.0300
 
 % Scenario 2
-% For scenario 2: pca 22 for parzen and ld and 21 for fisher and combining
+% For scenario 2: pca 21 for parzen, ld and fisher and combining
 % on prodc
 we1_2 = pcam(dataset_deskew_small,21)*parzenc([],0.78); % h is from optimizing parzenc using built-in function in parzenc.m
 we2_2 = pcam(dataset_deskew_small,21)*ldc([]);
